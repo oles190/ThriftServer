@@ -1,22 +1,34 @@
 package com.example.demo23.server;
 
-;
-import com.example.demo23.dao.BookRepository;
+
+
 import com.example.demo23.service.BookServiceImpl;
+
 import com.example.demo23.thrift.BookService;
+import lombok.AllArgsConstructor;
+
 import org.apache.thrift.TProcessor;
 import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.server.TServer;
 import org.apache.thrift.server.TSimpleServer;
 import org.apache.thrift.transport.TServerSocket;
 import org.apache.thrift.transport.TTransportException;
+
 import org.springframework.stereotype.Component;
 
+
+
 @Component
+@AllArgsConstructor
 public class Server {
 
-    public static void startServer() {
-        TProcessor processor = new BookService.Processor<BookService.Iface>(new BookServiceImpl(new BookRepository()));
+
+    private  BookServiceImpl bookService;
+
+    public void startServer() {
+
+        TProcessor processor = new BookService.Processor<BookService.Iface>(bookService);
+
         TServerSocket serverSocket = null;
         try {
             serverSocket = new TServerSocket(8282);

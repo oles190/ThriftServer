@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
-    transient   private String name;
+    private String name;
     private String author;
-
+    private int year;
 
 
 }
